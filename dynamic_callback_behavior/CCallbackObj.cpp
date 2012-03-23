@@ -5,12 +5,12 @@ CCallbackObj::CCallbackObj() : m_ulRefCount(1)
 }
 
 // IUnknown functions
-IFACEMETHODIMP_(ULONG) CCallbackObj::AddRef()
+ULONG __stdcall CCallbackObj::AddRef()
 {
     return InterlockedIncrement(&m_ulRefCount);
 }
 
-IFACEMETHODIMP_(ULONG) CCallbackObj::Release()
+ULONG __stdcall CCallbackObj::Release()
 {
     ULONG ulTemp = InterlockedDecrement(&m_ulRefCount);
     if (0 == ulTemp)
@@ -21,7 +21,7 @@ IFACEMETHODIMP_(ULONG) CCallbackObj::Release()
     return ulTemp;
 }
 
-IFACEMETHODIMP CCallbackObj::QueryInterface(REFIID clsid, void** ppv)
+HRESULT __stdcall CCallbackObj::QueryInterface(REFIID clsid, void** ppv)
 {
     if (nullptr == ppv)
     {
@@ -41,13 +41,13 @@ IFACEMETHODIMP CCallbackObj::QueryInterface(REFIID clsid, void** ppv)
 }
 
 // ICallbackObj functions
-IFACEMETHODIMP_(void) CCallbackObj::Bang()
+void __stdcall CCallbackObj::Bang()
 {
     m_callback();
 }
 
 // General functions supported by CCallbackObj
-void CCallbackObj::SetCallback(std::function<void()> callback)
+void __stdcall CCallbackObj::SetCallback(std::function<void()> callback)
 {
     m_callback = callback;
 }
