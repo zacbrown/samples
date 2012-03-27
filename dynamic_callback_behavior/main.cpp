@@ -2,7 +2,6 @@
 #include <wchar.h>
 #include <functional>
 #include <atlbase.h>
-#include <atlstr.h>
 
 #include "CCallbackObj.h"
 
